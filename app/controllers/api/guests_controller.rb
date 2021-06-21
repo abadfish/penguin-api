@@ -12,7 +12,10 @@ class Api::GuestsController < ApplicationController
 
   def create
     @guest = Guest.create(guest_params)
-    render json: @guest
+    render json: { 
+      guest: @guest,
+      message: 'rsvp successfully recorded'
+    }
   end
 
   def update
