@@ -11,11 +11,17 @@ class Api::GuestsController < ApplicationController
   end
 
   def create
-    @guest = Guest.create(guest_params)
-    render json: { 
-      guest: @guest,
-      message: 'rsvp successfully recorded'
-    }
+    @guest = Guest.new(guest_params)
+    if @guest.save
+      render json: { 
+        guest: @guest,
+        message: 'rsvp successfully recorded'
+      }
+    else
+      render json: {
+        error: @guest.errors.full_messages
+      }
+    end
   end
 
   def update
